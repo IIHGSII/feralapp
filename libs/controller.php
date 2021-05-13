@@ -20,7 +20,7 @@
         function existPOST($params){
             foreach($params as $param){
                 if(!isset($_POST[$param])){
-                    error_log('CONTROLLER::existsPOST => No existe el parametro' . $param);
+                    error_log('CONTROLLER::existsPOST => No existe el parametro ' . $param);
                     return false;
                 }
             }
@@ -30,7 +30,7 @@
         function existGET($params){
             foreach($params as $param){
                 if(!isset($_GET[$param])){
-                    error_log('CONTROLLER::existsGET => No existe el parametro' . $param);
+                    error_log('CONTROLLER::existsGET => No existe el parametro ' . $param);
                     return false;
                 }
             }
@@ -58,7 +58,7 @@
                 $params = '?' . $params;
             }
 
-            header('Location: ' . constant('URL') . $route . $params);
+            header('Location: ' . constant('URL') . '/' . $route . $params);
         }
     }
 
