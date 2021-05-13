@@ -1,6 +1,7 @@
 <?php
 
     require_once 'classes/session.php';
+    require_once 'models/usermodel.php';
 
     class SessionController extends Controller{
         private $userSession;
@@ -88,7 +89,7 @@
         }
 
         function getUserSessionData(){
-            $id = $this->userid;
+            $id = $this->session->getCurrentUser();
             $this->user = new UserModel();
             $this->user->get($id);
             error_log('SESSIONCONTROLLER::getUserSessionData(): ' . $this->user->getUsername());
@@ -123,7 +124,7 @@
                 break;
                 }
             }
-            header('location:' . $url);
+            header('location:' . constant('URL') . $url);
             
         }
 

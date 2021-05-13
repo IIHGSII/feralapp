@@ -24,7 +24,6 @@ class Signup extends SessionController{
             if($username == '' || empty($username) || $password == '' || empty($password)){
                 // error al validar datos
                 //$this->errorAtSignup('Campos vacios');
-                error_log('Validación de campos vacios');
                 $this->redirect('signup', ['error' => ErrorMessages::ERROR_SIGNUP_NEWUSER_EMPTY]);
             }
 
