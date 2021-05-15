@@ -121,5 +121,22 @@ require_once 'models/activomodel.php';
             
 
         }
+
+        public function delete($ticket){
+            try{
+                $query = $this->prepare('DELETE FROM servicio WHERE ticket = :ticket');
+                $query->execute([ 'ticket' => $ticket]);
+                return true;
+            }catch(PDOException $e){
+                echo $e;
+                return false;
+            }
+
+            if($res){
+                $this->redirect('servicio', []); //TODO: success
+            }else{
+                $this->redirect('servicio', []); //TODO: error
+            }
+        }
     }
 ?>
