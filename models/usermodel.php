@@ -148,8 +148,12 @@
 
         public function setId($id){        $this->id = $id;}
         public function setUsername($username){        $this->username = $username;}
-        public function setPassword($password){        
-            $this->password = $this->getHashedPassword($password);
+        public function setPassword($password, $hash = true){ 
+            if($hash){
+                $this->password = $this->getHashedPassword($password);
+            }else{
+                $this->password = $password;
+            }
         }
         public function setRol($rol){        $this->rol = $rol;}
         public function setFoto($foto){        $this->foto = $foto;}

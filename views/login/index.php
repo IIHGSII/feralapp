@@ -6,15 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <link rel="stylesheet" href="<?php echo constant('URL'); ?>public/css/login.css">
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="<?php echo constant('URL'); ?>public/css/login.css">
 </head>
 <body>
-    <h1>Este es la vista de Login</h1>
-    <p><?php
-        $this->showMessages();
-    ?></p>
+    <?php require 'views/header.php'; ?>
+
     <div id="login-main">
-        <form action="<?php echo constant('URL'); ?>/login/authenticate" method="POST">
-        <div><?php (isset($this->errorMessage))?  $this->errorMessage : '' ?></div>
+        <form action="<?php echo constant('URL'); ?>login/authenticate" method="POST">
+        <div></div>
             <h2>Iniciar sesión</h2>
 
             <p>
@@ -35,4 +41,4 @@
         </form>
     </div>
 </body>
-</html>
+</html> 

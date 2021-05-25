@@ -27,7 +27,7 @@
             }
         }
         public function getAll(){
-            $items [];
+            $items = [];
 
             try{
                 $query = $this->query('SELECT * FROM activo');
@@ -72,9 +72,9 @@
             try{
                 $query = $this->prepare('UPDATE activo SET id = :id, marca = :marca, modelo = :modelo WHERE id = :id');
                 $query->execute([
-                    'id' => $id,
-                    'marca' => $marca,
-                    'modelo' => $modelo
+                    'id' => $this->$id,
+                    'marca' => $this->$marca,
+                    'modelo' => $this->$modelo
                     ]);
                 $activo = $query->fetch(PDO::FETCH_ASSOC);
                 return true;

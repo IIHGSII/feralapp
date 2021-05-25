@@ -17,21 +17,21 @@ class User extends SessionController{
     }
 
     function updateName(){
-        if(!$this->existPOST('nombre')){
-            $this->redirect('user', ['errorMessages' => ErrorMessages::ERROR_USER_UPDATEBUDGET]);
+        if(!$this->existPOST('name')){
+            $this->redirect('user', ['errorMessages' => ErrorMessages::ERROR_USER_UPDATENAME]);
             return;
         }
 
-        $nombre = $this->getPost('nombre');
+        $nombre = $this->getPost('name');
 
-        if(empty($nombre)){
-            $this->redirect('user', ['errorMessages' => ErrorMessages::ERROR_USER_UPDATEBUDGET]);
+        if(empty($nombre || $nombre == NULL)){
+            $this->redirect('user', ['errorMessages' => ErrorMessages::ERROR_USER_UPDATENAME]);
             return;
         }
         
-        $this->user->setName($nombre);
+        $this->user->setNombre($nombre);
         if($this->user->update()){
-            $this->redirect('user', ['successMessages' => SuccessMessages::SUCCESS_USER_UPDATEBUDGET]);
+            $this->redirect('user', ['successMessages' => SuccessMessages::SUCCESS_USER_UPDATENAME_EMPTY]);
         }else{
             //error
         }
@@ -58,6 +58,7 @@ class User extends SessionController{
 
         //validar que el current es el mismo que el guardado
         $newHash = $this->model->comparePasswords($current, $this->user->getId());
+
         if($newHash != NULL){
             //si lo es actualizar con el nuevo
             $this->user->setPassword($new, true);

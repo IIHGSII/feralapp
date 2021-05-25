@@ -1,6 +1,6 @@
 <?php
 
-define('URL', 'http://localhost/feralapp');
+define('URL', 'http://localhost/feralapp/');
 
 define('HOST', '127.0.0.1');
 define('DB', 'feralapp');

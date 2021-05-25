@@ -41,8 +41,8 @@
             return $_GET[$name];
         }
 
-        function getPost($nombre){
-            return $_POST[$nombre];
+        function getPost($name){
+            return $_POST[$name];
         }
 
         function redirect($route, $mensajes){

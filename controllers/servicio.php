@@ -52,14 +52,14 @@ require_once 'models/activomodel.php';
             ]);
         }
 
-        function getActivoId(){
+        function getActivosId(){
             $joinModel = new JoinServicioActivoModel();
-            $activo = $joinModel->getAll($this->user->getId()); //revisar si no debe ser cedula
+            $activo = $joinModel->getAll($this->user->getId()); //revisar si no debe ser cedula - SI DEBE SER CEDULA
 
             $res = [];
 
             foreach($activo as $act){
-                array_push($res, $act->getActivoId());
+                array_push($res, $act->getIdActivo());
             }
 
             $res = array_values(array_unique($res));
@@ -71,14 +71,14 @@ require_once 'models/activomodel.php';
             $months = [];
             $res = [];
             $joinModel = new JoinServicioActivoModel();
-            $servicio = $joinModel->getAll($this->user->getId());
+            $servicio = $joinModel->getAll($this->user->getId()); //Otravez debe ser cedula
 
             foreach($servicios as $servicio){
-                array_push($months, substr($servicio->getDate(), 0, 7));
+                array_push($months, substr($servicio->getFecha(), 0, 7));
             }
             $months = array_values(array_unique($months));
 
-            if(count($months) > 3){
+            if(count($months) > 3){ //elegimos 3 meses para la grafica en el dashboard
                 array_push($res, array_pop($months));
                 array_push($res, array_pop($months));
                 array_push($res, array_pop($months));
@@ -90,10 +90,10 @@ require_once 'models/activomodel.php';
         function getActivoList(){
             $res = [];
             $joinModel = new JoinServicioActivoModel();
-            $servicio = $joinModel->getAll($this->user->getId());
+            $servicio = $joinModel->getAll($this->user->getId()); //otra vez debe ser cedula
 
             foreach($servicios as $servicio){
-                array_push($res, $servicio->getActivoId()); //getNameCategory()
+                array_push($res, $servicio->getIdActivo()); //getNameCategory()
             }
             $res = array_values(array_unique($res));
 
@@ -104,10 +104,10 @@ require_once 'models/activomodel.php';
             header('Content-Type: application/json');
             $res = [];
             $joinModel = new JoinServicioActivoModel();
-            $servicio = $joinModel->getAll($this->user->getId());
+            $servicio = $joinModel->getAll($this->user->getId()); //otra vez debe ser cedula
 
             foreach($servicios as $servicio){
-                array_push($res, $servicio->toArray();
+                array_push($res, $servicio->toArray());
             }
 
             echo json_encode($res);
@@ -117,9 +117,26 @@ require_once 'models/activomodel.php';
             header('Content-Type: application/json');
 
             $res = [];
-            $activoIds = $this->getActivoId();
+            $activoIds = $this->getActivosId();
             
+            //incompleto #9 min 25
 
+            $months = this->getDateList();
+
+            for($i = 0; $i < count($months); $i++){
+                $item = array($months[$i]);
+                for($j = 0; $j < count($activoIds); $j++){
+                    $total = $this->getTotalByMonthAndActivo($months[$i], $activoIds[$j]); //este metodo no existe
+                    array_push($item, $total);
+                }
+                array_push($res, $item);
+            }
+
+            //incompleto #9 min 25
+        }
+
+        private function getTotalByMonthAndActivo($fecha, $activoid){
+            //incompleto
         }
 
         public function delete($ticket){

@@ -37,7 +37,7 @@
                     'usuario' => $this->usuarioid,
                     'monto' => $this->monto
                 ]);
-                if($query->rowCount()) return true;
+                if($query->rowCount()) return true; //si devuelve el resultado de una fila insertada devuelve true
                 return false;
             }catch(PDOException $e){
                 return false;
@@ -119,7 +119,7 @@
         public function getAllByCedula($cedula){
             $items = [];
             try{
-                $query = $this->prepare('SELECT * FROM servicio WHERE cedula = :cedula  ');
+                $query = $this->prepare('SELECT * FROM servicio WHERE cedula = :cedula');
                 $query->execute([
                     'cedula' => $cedula
                 ]);
@@ -138,12 +138,30 @@
             }
         }
 
+        public function getByUserIdAndLimit($userid, $n){
+            $items = [];
+            try{
+                $query = $this->prepare('SELECT * FROM servicio WHERE id_usuario = :userid ORDER BY servicio.fecha DESC LIMIT 0, :n ');
+                $query->execute([ 'n' => $n, 'userid' => $userid]);
+                while($p = $query->fetch(PDO::FETCH_ASSOC)){
+                    $item = new ServicioModel();
+                    $item->from($p); 
+                    
+                    array_push($items, $item);
+                }
+                error_log("ServicioModel::getByUserIdAndLimit(): count: " . count($items));
+                return $items;
+            }catch(PDOException $e){
+                return false;
+            }
+        }
+
         public function getTotalAmountThisMonth($cedula){
             
             try{
                 $year = date('Y');
                 $month = date('m');
-                $query = $this->prepare('SELECT SUM(monto) AS total FROM servicio WHERE YEAR(date) = :year AND MONTH(date) = :month AND cedula = :cedula');
+                $query = $this->prepare('SELECT SUM(monto) AS total FROM servicio WHERE YEAR(fecha) = :year AND MONTH(fecha) = :month AND cedula = :cedula');
                 $query->execute([
                     'cedula' => $cedula,
                     'year' => $year,

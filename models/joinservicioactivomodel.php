@@ -15,7 +15,7 @@ class JoinServicioActivoModel extends Model{
         parent::__construct();
     }
 
-    public function getAll($cedula){
+    public function getAll($cedula){  //no utilizar el userID
         $items = [];
 
         try{
@@ -25,7 +25,7 @@ class JoinServicioActivoModel extends Model{
             ]);
 
             while($p = $query->fetch(PDO::FETCH_ASSOC)){
-                $item = new JoinServicioActivoModdel();
+                $item = new JoinServicioActivoModel();
                 $item->from($p);
                 array_push($items, $item);
             }
